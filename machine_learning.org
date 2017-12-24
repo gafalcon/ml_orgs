@@ -1,0 +1,75 @@
+
+* Machine Learning
+** Base
+*** Supervise vs unsupervised
+*** Bias-Variance tradeoff
+** Data exploration
+*** normalization
+**** log transformation
+*** TODO heteroscedasticity
+**** Box-cox transform
+*** Missing data
+    - median, mean
+**** Imputing
+***** TODO MICE 
+** Algorithms
+*** Linear regression
+**** Polynomial regression
+*** Logistic regression
+*** k-nearest neighbors
+    - Finds the k closest neighbors and classify according to the most common class. 
+    - Elbow method to find k
+    - no training
+    - long prediction cuz compares to each training sample
+    - different comparing functions: L2, L1, cos
+    - Unreliable in many dimensions
+*** tree-regression, tree classifier
+    - Easy to overfit
+*** svm
+*** Ensembles
+**** random forest
+**** boosting
+**** Bagging
+     is a method for generating multiple versions of a predictor and using these to get an aggregated predictor. Helps reduce variance.
+     Bagging gets around overfitting by creating it’s own variance amongst the data by sampling and replacing data while it tests multiple hypothesis(models). In turn, this reduces the noise by utilizing multiple samples that would most likely be made up of data with various attributes(median, average, etc).
+
+     Once each model has developed a hypothesis. The models use voting for classification or averaging for regression. This is where the “Aggregating” in “Bootstrap Aggregating” comes into play. Each hypothesis has the same weight as all the others. 
+     
+*** Recommender systems
+    Content-based filtering
+    Collaborative filtering
+*** Naive Bayes
+*** Unsupervised Methods
+**** Clustering
+***** TODO GMM (Gaussian Mixture models)
+***** k-means
+***** TODO dbscan
+***** TODO hierarchical clustering
+**** Dimensionality Reduction
+***** PCA
+***** TODO LDA
+***** TODO SVD
+** Loss functions
+*** LogLoss
+    Quantifies accuracy by penalising false classifications. Must assign a probability to each class rather than simply yielding the most likely class.
+    [[./logloss.png]]
+    N is num of examples, M num of possible labels, y_{ij} is binary indicator of whether or not label j is correct classification for instance i, and p_{ij} is the model probability of assigning label j to instance i.
+    For binary classification:
+    [[./logloss_binary.png]]
+    Log Loss penalises classifiers that are confident about an incorrect classification. If the classifier assigns a very small prob to the correct class then the Log Loss will be very large. 
+    It's better to be somewhat wrong than emphatically wrong.
+    [[./logloss_curve.png]]
+*** Multiclass Support Vector Machine (SVM) loss.
+    The correct class must have score higher than the incorrect classes by some fixed margin Delta. Delta can be safely set at 1.0 in all cases. the \lambda is the one to take into account
+    - is more local objective. As long as the correct class is higher than the rest by the margin specified, the loss will be zero. [10,8,8] would be the same as [10, -100, -100] where the first one is the correct class.
+*** Softmax
+**** Hierarchical softmax
+** Optimization
+*** Hyperparameter tuning
+**** Cross-validation
+     - Grid search: select combination of hyperparameters to find which combination works better
+     - Random search: instead of trying out all possible combinations, it evaluates a given num of random combinations by selecting a random value for each hyperparam at every iteration. Preferred if you have lots of hyperparams.
+** Comparison
+** Resources
+   - https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy
+   - 
