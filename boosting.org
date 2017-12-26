@@ -3,6 +3,8 @@
   - using avg/weighted avg
   - considering precision has higher vote
   in boosting methods, base estimators are built sequentially and one tries to reduce the bias of the combined estimator. The motivation is to combine several weak models to produce a powerful ensemble.
+
+  It’s really important to note that boosting is focused on reducing the bias. This makes the boosting algorithms prone to overfitting. Thus, parameter tuning becomes a crucial part of boosting algorithms to make them avoid overfitting.
 ** Basic Procedure
    1. Start with set of classifiers h_1, ..., h_k
    2. Create a classifier that combines classification functions f(x) = sgn \sum^T \alpha_{t}h_{t}(x)

@@ -1,0 +1,37 @@
+* Stacking
+  Stacking is an ensemble learning technique to combine multiple classification models via a meta-classifier. The individual classification models are trained based on the complete training set; then, the meta-classifier is fitted based on the outputs -- meta-features -- of the individual classification models in the ensemble. The meta-classifier can either be trained on the predicted class labels or probabilities from the ensemble.
+
+  It is important that sub-models produce different predictions, so-called uncorrelated predictions. Stacking works best when the predictions that are combined are all skillful, but skillful in different ways. This may be achieved by using algorithms that use very different internal representations (trees compared to instances) and/or models trained on different representations or projections of the training data.
+
+  It is typical to use a simple linear method to combine the predictions for submodels such as simple averaging or voting, to a weighted sum using linear regression or logistic regression.
+
+ [[./images/stacking.jpg]] 
+
+** Procedure
+   1. Split the training set into two disjoint sets.
+   2. Train several base learners on the first part.
+   3. Test the base learners on the second part.
+   4. Using the predictions from 3) as the inputs, and the correct responses as the outputs, train a higher level learner.
+
+   - Any model can be used as 1-st level model or 2-nd level model.
+   - To avoid overfitting (for train set) we use cross-validation technique and in each fold we predict out-of-fold part of train set.
+   - The common practice is to use from 3 to 10 folds.
+     [[./images/stacking.gif]]
+     
+** Diversity
+   There are various ways to enhance diversity such as using:
+    - Different training algorithms.
+    - Different hyperparameter settings.
+    - Different feature subsets.
+    - Different training sets.
+
+** Overfitting
+   Overfitting is an especially big problem in model stacking, because so many predictors that all predict the same target are combined. Overfitting is partially caused by this collinearity between the predictors.
+   The most efficient techniques for training models (especially during the stacking stages) include using cross validation and some form of regularization
+   [[./images/stacking_levels.png]]
+
+** References
+   - [[https://rasbt.github.io/mlxtend/user_guide/classifier/StackingClassifier/][StackingClassifier API]]
+   - [[https://github.com/vecxoz/vecstack][vecstack]]
+   - [[https://blogs.sas.com/content/subconsciousmusings/2017/05/18/stacked-ensemble-models-win-data-science-competitions/][Stacked models win data science competitions]]
+   - [[http://blog.kaggle.com/2017/06/15/stacking-made-easy-an-introduction-to-stacknet-by-competitions-grandmaster-marios-michailidis-kazanova/][Stacknet JAVA]]

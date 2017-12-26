@@ -3,6 +3,8 @@
 ** Base
 *** Supervise vs unsupervised
 *** Bias-Variance tradeoff
+*** Bootstrapping
+    Bootstrapping is a sampling technique in which we choose ‘n’ observations or rows out of the original dataset of ‘n’ rows as well. But the key is that each row is selected with replacement from the original dataset so that each row is equally likely to be selected in each iteration.
 ** Data exploration
 *** normalization
 **** log transformation
@@ -27,14 +29,23 @@
     - Easy to overfit
 *** svm
 *** Ensembles
+    Combining the predictions of multiple ml models. Unweighted avg of the models' predictions, or weighted depending on the accuracy of each model, or Majority Voting
+    [[./images/weighted-unweighted.png]]
 **** random forest
+     Bagging to create multiple decision trees, which reduces variance. Also chooses only subset of features. Later aggregates the predictions of individual trees.
 **** boosting
-**** Bagging
+     [[./boosting.org]]
+**** Bagging (Bootstrap Aggregation)
      is a method for generating multiple versions of a predictor and using these to get an aggregated predictor. Helps reduce variance.
-     Bagging gets around overfitting by creating it’s own variance amongst the data by sampling and replacing data while it tests multiple hypothesis(models). In turn, this reduces the noise by utilizing multiple samples that would most likely be made up of data with various attributes(median, average, etc).
+     Bagging gets around overfitting by creating it’s own variance amongst the data by sampling and replacing data (Bootstrapping) while it tests multiple hypothesis(models). In turn, this reduces the noise by utilizing multiple samples that would most likely be made up of data with various attributes(median, average, etc).
 
      Once each model has developed a hypothesis. The models use voting for classification or averaging for regression. This is where the “Aggregating” in “Bootstrap Aggregating” comes into play. Each hypothesis has the same weight as all the others. 
-     
+**** Stacking
+     [[./stacking.org]]
+**** Disadvantages
+     Ensembling reduces the model interpretability and makes it very difficult to draw any crucial business insights at the end.
+     It is time-consuming and thus might not be the best idea for real-time applications.
+     The selection of models for creating an ensemble is an art which is really hard to master.
 *** Recommender systems
     Content-based filtering
     Collaborative filtering
@@ -72,4 +83,4 @@
 ** Comparison
 ** Resources
    - https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy
-   - 
+   - https://www.analyticsvidhya.com/blog/2017/02/introduction-to-ensembling-along-with-implementation-in-r/
