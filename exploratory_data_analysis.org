@@ -40,9 +40,14 @@
    - pd.cut()
 ** Scaling
    - sklearn.preprocessing.StandardScaler
-** Categorical to dummies
+** Categorical to One-hot encoding 
+   - to not impose ordering in the categories
+   - Some ml dont need it: DecisionTrees and derivates
    - pd.get_dummies()
    - sklearn.preprocessing.OneHotEncoder
+   - if large number of diff categories, use dimensionality reduction or one vs rest
+     - one-hot encode the most frequent ones and drop or encode the rest as being the same
+     - hashing trick
 ** Drop columns
    - data.drop([cols], axis=1, inplace=True)
    - if features strongly correlated, drop one
