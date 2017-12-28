@@ -6,6 +6,7 @@
 *** Bootstrapping
     Bootstrapping is a sampling technique in which we choose ‘n’ observations or rows out of the original dataset of ‘n’ rows as well. But the key is that each row is selected with replacement from the original dataset so that each row is equally likely to be selected in each iteration.
 ** Data exploration
+   [[./exploratory_data_analysis.org]]
 *** normalization
 **** log transformation
 *** TODO heteroscedasticity
