@@ -1,0 +1,49 @@
+* Data Exploration
+ - Analysis of the features
+ - Finding relations or trends considering multiple features
+ 
+** python pandas
+   - data.head()
+   - data.isnull().sum() # total null vals
+   - data.groupby(['Sex','Survived'])['Survived'].count() # For cat features
+   - pd.crosstab(data.Pclass,data.Survived,margins=True).style.background_gradient(cmap='summer_r') # Cat/Ordinal features matrix
+   - data.corr() # Correlation matrix
+   - data.value_counts() #for cat 
+
+** Visualization
+   - f,ax=plt.subplots(1,2,figsize=(18,8)) # Subplots
+   - sns.countplot() # Bar chart for categorical data
+   - sns.countplot(hue='other cat') # to see relation in cat features
+     [[./images/countplot.png]]
+   - data['Sex','Survived'].groupby(['Sex']).mean().plot.bar(ax=ax[0]) #ratio
+     [[./images/pd_plot_ratio.png]]
+   - sns.factorplot('Pclass','Survived',hue='Sex',data=data) # makes separation of cat values easy
+     [[./images/factorplot.png]]
+   - sns.factorplot('Pclass','Survived',hue='Sex',col='Embarked',data=data) #cat vs num in subplots
+     [[./images/factorplot2.png]]
+   - sns.violinplot("Pclass","Age", hue="Survived", data=data,split=True,ax=ax[0]) #cat vs num
+     [[./images/violinplot.png]]
+   - sns.barplot('SibSp','Survived',data=data,ax=ax[0]) #cat/ordinal vs cat count
+     [[./images/barplot.png]]
+   - sns.distplot(data[data['Pclass']==1].Fare,ax=ax[0]) # num values
+     [[./images/distplot.png]]
+   - sns.heatmap(data.corr(),annot=True,cmap='RdYlGn',linewidths=0.2) #Correlation heatmap
+     [[./images/heatmap_corr.png]]
+  
+* Feature engineering
+** TODO Filling missing vals
+   - data.fillna() #with mean(), median(), mode()[0], etc
+   - sklearn.preprocessing.Imputer
+   - imputation #TODO
+** Binning
+   - pd.qcut()
+   - pd.cut()
+** Scaling
+   - sklearn.preprocessing.StandardScaler
+** Categorical to dummies
+   - pd.get_dummies()
+   - sklearn.preprocessing.OneHotEncoder
+** Drop columns
+   - data.drop([cols], axis=1, inplace=True)
+   - if features strongly correlated, drop one
+** Combine columns 
