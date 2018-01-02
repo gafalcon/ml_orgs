@@ -22,12 +22,16 @@
    - sns.factorplot('Pclass','Survived',hue='Sex',col='Embarked',data=data) #cat vs num in subplots
      [[./images/factorplot2.png]]
    - sns.violinplot("Pclass","Age", hue="Survived", data=data,split=True,ax=ax[0]) #cat vs num
+     #+ATTR_ORG: :width 500
      [[./images/violinplot.png]]
    - sns.barplot('SibSp','Survived',data=data,ax=ax[0]) #cat/ordinal vs cat count
+     #+ATTR_ORG: :width 500
      [[./images/barplot.png]]
    - sns.distplot(data[data['Pclass']==1].Fare,ax=ax[0]) # num values
+     #+ATTR_ORG: :width 500
      [[./images/distplot.png]]
    - sns.heatmap(data.corr(),annot=True,cmap='RdYlGn',linewidths=0.2) #Correlation heatmap
+     #+ATTR_ORG: :width 500
      [[./images/heatmap_corr.png]]
   
 * Feature engineering
