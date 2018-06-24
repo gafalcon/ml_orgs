@@ -3,15 +3,25 @@
  - Finding relations or trends considering multiple features
  
 ** python pandas
+   - data.describe()
    - data.head()
    - data.isnull().sum() # total null vals
    - data.groupby(['Sex','Survived'])['Survived'].count() # For cat features
    - pd.crosstab(data.Pclass,data.Survived,margins=True).style.background_gradient(cmap='summer_r') # Cat/Ordinal features matrix
    - data.corr() # Correlation matrix
-   - data.value_counts() #for cat 
+   - data.value_counts() #for cat
+
+** R
+   - summary() # min, max, quartiles, mean, ...
+   - table() # Frequencies
+   - prop.table() # Frequency table of conditional proportions
+   - hist(bins=, labels=) #Histogram
+   - pie(frequencies) # pie chart
+   - plot(x,y) #Scatterplot
 
 ** Visualization
    - f,ax=plt.subplots(1,2,figsize=(18,8)) # Subplots
+   - df.plot.scatter(x,y)
    - sns.countplot() # Bar chart for categorical data
    - sns.countplot(hue='other cat') # to see relation in cat features
      [[./images/countplot.png]]
@@ -33,7 +43,7 @@
    - sns.heatmap(data.corr(),annot=True,cmap='RdYlGn',linewidths=0.2) #Correlation heatmap
      #+ATTR_ORG: :width 500
      [[./images/heatmap_corr.png]]
-  
+
 * Feature engineering
 ** TODO Filling missing vals
    - data.fillna() #with mean(), median(), mode()[0], etc
@@ -56,3 +66,9 @@
    - data.drop([cols], axis=1, inplace=True)
    - if features strongly correlated, drop one
 ** Combine columns 
+** Skewed data
+   - scipy.stats.skew : If > 0.75, transform.
+   - transform scipy.stats.boxcox
+   - transform np.log1p
+   - np.expm1 - inverse of log1p
+   - *Transform the dependent variable:* to fit better the assumptions underlying regression. To make the relations between vars *more linear*

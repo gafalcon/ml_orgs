@@ -1,0 +1,8 @@
+
+* Time series data
+
+ARIMA. Holt-Winters and EMWA. Regression with time series errors. Bayesian hierarchical temporal models. Bayesian model averaging. Support vector regression. Splines. “Chaotic” nonlinear time series methods. I could go on.
+
+Each of these has the potential to do better in specific cases than RNNs - and are often faster to train.
+- NNS: CNNs (Conv seq2seq), RNNs (GRU, LSTM)
+- 

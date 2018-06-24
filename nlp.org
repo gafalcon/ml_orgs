@@ -1,0 +1,24 @@
+* NLP
+  - Remove irrelevant characters such as non alphanumeric chars.
+  - Tokenize text
+  - Remove words not relevant, such as "@" or urls
+  - Convert to lowercase
+  - Consider combining misspelled or alternately spelled words as single representation
+  - Lemmatize
+** Representation
+*** Bag of words
+    Completely ignores order of words
+    #+ATTR_ORG: :width 500
+     [[./images/bag_of_words.png]]
+*** TF-IDF (Term Frequency, Inverse Document Frequency)
+    weighs words by how rare they are in our dataset, discounting words that are too frequent and just add to the noise
+*** TODO Embeddings
+    - *Word2Vec* Capture the semantic meaning of words. It learns from reading massive amounts of text and memorizing which words tend to appear in similar contexts. Words with similar meaning are closer to each other. /See in nn_org/
+    - Glove
+    - Cove
+** TODO Convolutional NNs for Sentence Classification
+   provide excellent results on text related tasks, and much quicker to train than most complex NLP approaches. (LSTMS, Encoder/Decoders)
+** TODO LSTMs
+** TODO Encoder/Decoder Seq2Seq
+** Resources
+   - [[https://blog.insightdatascience.com/how-to-solve-90-of-nlp-problems-a-step-by-step-guide-fda605278e4e][Medium - How to solve nlp problems]]
