@@ -15,6 +15,12 @@
     - median, mean
 **** Imputing
 ***** TODO MICE 
+** Validation/test sets and Cross Validation
+   train on a test set, validate predictions in a validation set, and when u have ur model complete, then use test set. Usually select sets in random. But if there is a time feature, not random.
+*** Cross Validation
+    To not overfit on validation set
+    - GridSearch
+    - RandomSearch
 ** Algorithms
 *** Regression
 **** Linear regression
@@ -37,6 +43,14 @@
     [[./images/weighted-unweighted.png]]
 **** random forest
      Bagging to create multiple decision trees, which reduces variance. Also chooses only subset of features. Later aggregates the predictions of individual trees.
+     Doesnt overfit much. 
+     Doesnt have statistic assumptions.
+***** sklearn ensemble RandomForestClassifier or RandomForestRegressor
+      - params: n_estimators, max_depth, bootstrap, n_jobs
+      - oob_score (out of bag score): calculate error on training set, but only include trees in the calculation of a row's error where that row was not included in training that tree. This allows us to see whether the model is over-fitting, without needing a separate val set. Good if we have small amount of data.
+***** sklearn ExtraTrees
+      Extreme Trees. Random select splits and features. To make more uncorrelated trees in the forest.
+       
 **** boosting
      [[./boosting.org]]
 **** Bagging (Bootstrap Aggregation)
