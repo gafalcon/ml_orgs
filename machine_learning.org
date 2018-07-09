@@ -104,10 +104,29 @@
 *** Confusion matrix
     compares predictions with the true label. To check false positives and false negatives
 *** Most important features.
-    - In randomforest there is a method.
-    - In regression, features with highest weights.
+    - In randomforest there is a method. Crude and static in the sense that it gives little insight in understanding individual decisions on actual data.
+    - In regression, features with highest weights. They can be very biased.
     - Word2Vec: *Lime* 
     - LIME: allows users to explain the decisions of any classifier *on one particular example* by perturbing the input and seeing how the prediction changes
+*** Partial Dependence
+    For black box ml algorithms, useful to understand the relations between predictors and model outcome. Helps to know in which direction a feature influences the outcome.
+    - python *pdpbox*
+      [[./images/pdp_plot.png]]
+      [[./images/pdp_cluster.png]]
+    - partial dependence plot aims to visualize the marginal effect of a given predictor towards the model outcome by plotting out the average model outcome in terms of different values of the predictor.
+    - Replaces column of interest with constant values, leaving all the other features the same, and records the prediction value. Keep doing the same with different values for the column of interest.
+    - Useful also for interactions between features
+      [[./images/pdp_interaction_plot.png]]
+    - We can see dependencies between categories
+      [[./images/pdp_cat.png]]
+    - If we want to see how feature A is influencing the prediction Y, what PDP does is to generate a new data set as follow and do prediction as usual. (here we assume that feature A has three unique values: A1, A2, A3)
+      [[./images/pdp_table.png]]
+*** Tree Interpreter
+    To interpret how much each feature contributed to the final outcome.
+    a more “operational” way to define the prediction, namely through the sequence of regions that correspond to each node/decision in the tree. Since each decision is guarded by a feature, and the decision either adds or subtracts from the value given in the parent node, the prediction can be defined as the sum of the feature contributions + the “bias” (i.e. the mean given by the topmost region that covers the entire training set).
+    f(x)=c_full + \sum_{k=1}^{K}contrib(x,k) where K is the number of features, c_{full} is the value at the root of the node and contrib(x,k) is the contribution from the k-th feature in the feature vector x. This is superficially similar to linear regression (f(x)=a+bx). For linear regression the coefficients b are fixed, with a single constant for every feature that determines the contribution. For the decision tree, the contribution of each feature is not a single predetermined value, but depends on the rest of the feature vector which determines the decision path that traverses the tree and thus the guards/contributions that are passed along the way.
+    - python module: treeinterpreter
+    - [[http://blog.datadive.net/interpreting-random-forests/][Interpreting random forests]]
 ** Comparison
 ** Resources
    - https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy

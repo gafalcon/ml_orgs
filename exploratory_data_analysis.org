@@ -57,16 +57,20 @@
 ** Scaling
    - sklearn.preprocessing.StandardScaler
 ** Categorical to One-hot encoding 
-   - to not impose ordering in the categories
+   - to not impose ordering in the categories. Take notice if u need ordering in a feature.
    - Some ml dont need it: DecisionTrees and derivates
    - pd.get_dummies()
    - sklearn.preprocessing.OneHotEncoder
    - if large number of diff categories, use dimensionality reduction or one vs rest
      - one-hot encode the most frequent ones and drop or encode the rest as being the same
      - hashing trick
+   - Can help select specific categories in a feature. And remove the unimportant ones
 ** Drop columns
    - data.drop([cols], axis=1, inplace=True)
-   - if features strongly correlated, drop one
+   - if features strongly correlated, drop one. Rank correlation (Spearman) can help check non linear correlations
+   - Delete columns one at the time and check the score to see if there is any major difference when droping them
+*** Cluster analysis
+    To remove redundant features. See fastai ml notebook: lesson2-rf-interpretation
 ** Combine columns 
 ** Skewed data
    - scipy.stats.skew : If > 0.75, transform.
