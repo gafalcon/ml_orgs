@@ -44,3 +44,7 @@
   Generally, try both extra-trees and random forest and cross-validate to see which performs better.
 * Feature Importance
   Looking at how much the tree nodes that use that feature reduce impurity on average (across all trees in the forest). It is a weighted average, where each node's weight is equal to the number of training samples that are associated with it.
+
+  If there are colinear features, they may share feature importance*
+* Confidence Based on tree Variance
+Use the standard deviation of predictions, instead of just the mean. This tells us the relative confidence of predictions. For rows where the trees give very differente results, you would want to be more cautious of using those results, compared to cases where they are more consistent.
