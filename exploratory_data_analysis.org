@@ -18,6 +18,8 @@
    - hist(bins=, labels=) #Histogram
    - pie(frequencies) # pie chart
    - plot(x,y) #Scatterplot
+   - cor(x,y) #Correlation
+   - L = lm(x,y) # Regression coef(L) # coefficients abline(L)#draw line in plot
 
 ** Visualization
    - f,ax=plt.subplots(1,2,figsize=(18,8)) # Subplots
