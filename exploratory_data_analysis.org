@@ -1,7 +1,15 @@
 * Data Exploration
  - Analysis of the features
  - Finding relations or trends considering multiple features
- 
+
+** Causation and Lurking Variables 
+   - A *lurking variable* is a variable that was not included in your analysis, but could change your interpretation of the data if it were included.
+   - Association does not cause causation.
+   - Including a lurking var in our exploration may:
+     - helps us to gain a deeper understanding of the relationship between vars, or 
+     - lead us to rethink the direction of an association
+   - Whenever including a lurking variable causes us to rethink the directio of an association, this is an instance of *Simpson's paradox*
+     
 ** python pandas
    - data.describe()
    - data.head()
