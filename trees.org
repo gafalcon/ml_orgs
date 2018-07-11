@@ -27,7 +27,7 @@
    Increasing min_* hyperparams or reducing max_* hyperparams will regularize the model.
    - max_depth
    - min_samples_split
-   - min_samples_leaft
+   - min_samples_leaf
    - max_features
 ** Instability
    Decision Trees love orthogonal decision boundaries(all splits are perpendicular to an axis), which makes them sensitive to training set rotation)
