@@ -40,6 +40,7 @@
     - Easy to overfit
 *** svm
 *** Ensembles
+    [[./images/ensemble.png]]
     Combining the predictions of multiple ml models. Unweighted avg of the models' predictions, or weighted depending on the accuracy of each model, or Majority Voting
     [[./images/weighted-unweighted.png]]
 **** random forest

@@ -2,9 +2,14 @@
   Family of algorithms that convert collection of weak learners to strong learners
   - using avg/weighted avg
   - considering precision has higher vote
-  in boosting methods, base estimators are built sequentially and one tries to reduce the bias of the combined estimator. The motivation is to combine several weak models to produce a powerful ensemble.
+  in boosting methods, base estimators are built sequentially and one tries to reduce the bias of the combined estimator. Each model that runs, dictates what features the next model will focus on. The motivation is to combine several weak models to produce a powerful ensemble.
+
+  Unlike bagging, boosting weights each sample of data. This means some samples will be run more often than others. For each model, track which data samples are the most succesful and which are not. The data sets with the most misclassified outputs are given heavier weights. These are considered to be data that have more complexity and requires more iterations to properly train the model.
+
+  The model's error rates are kept track of because better models are given better weights. During classification, the models with better outcomes have a stronger pull on the final output.
 
   It’s really important to note that boosting is focused on reducing the bias. This makes the boosting algorithms prone to overfitting. Thus, parameter tuning becomes a crucial part of boosting algorithms to make them avoid overfitting.
+
 ** Basic Procedure
    1. Start with set of classifiers h_1, ..., h_k
    2. Create a classifier that combines classification functions f(x) = sgn \sum^T \alpha_{t}h_{t}(x)
@@ -37,30 +42,69 @@
    trains many model sequentially. Each new model gradually minimizes the loss function (y = ax + b + e, e needs special attention as it is an error term) of the whole system using Gradient Descent method. The learning procedure consecutively fit new models to provide a more accurate estimate of the response variable.
 
    The principle idea behind this algorithm is to construct new base learners which can be maximally correlated with negative gradient of the loss function, associated with the whole ensemble.  
+   
+   A very thorough explanation can be seen in  [[http://explained.ai/gradient-boosting/index.html][How to explain gradient boosting]]
 
+*** Steps to fit Gradient Boosting
+    1. Fit simple model on data (linear regressor or decision tree).
+    2. Calculate error residuals. Actual target minus predicted target value. *[e1 = y - yPredicted1 ]*
+    3. Fit a new model on error residuals as target variable with same input variables. *[e1_predicted]*
+    4. Add the predicted residuals to the previous predictions
+       *[y_pred2 = y_pred1 + e1_pred]*
+    5. Fit another model on residuals that is still left. And repeat steps 2 to 5 until it starts overfitting or the sum of residuals become constant.
+       
    The advantages of GBRT are:
    - Natural handling of data of mixed type (= heterogeneous features)
    - Predictive power
-   - Robustness to outliers in output space (via robust loss functions)
+   - Robustness to outliers in output space (via robust loss functions) If training using Mean Absolute error(MAE) instead of MSE.
 
    The disadvantages of GBRT are: Scalability, due to the sequential nature of boosting it can hardly be parallelized.
 
+   - n_estimators: number of weak learners
+   - learning_rate: Contribution of weak learners in the final combination. Trade-off between learning_rate and n_estimators. This "shrinkage" is to reduce overfitting. Reduces influece of each individual tree and leaves space for future trees to improve the model".
+   - max_depth: maximum depth of individual estimators.
+   - subsample: Fraction of observations to be selected for each tree. Slightly less than 1 (0.8) make the model robust by reducing variance.
+  
+
+   - In the paper is recommended a low learning rate like 0.1 and a large number of stages(estimators). In practice, perform a grid search.
+
    - Smaller values of learning_rate require larger numbers of weak learners to maintain a constant training error. Empirical evidence suggests that small values of learning_rate favor better test error.Recommend to set the learning rate to a small constant (e.g. learning_rate <= 0.1) and choose n_estimators by early stopping
 ** XGBoost Xtreme Gradient Boosting
+   - Regularization: Standard GBM has no regularization.
    - Efficient: Automatic parallel computation on a single machine. Can be run on a cluster
+   - Flexible: Allows to define custom optimization objectives and evaluation criteria.
+   - Handling missin values
+   - Tree pruning: make splits upto the max_depth specified and the start pruning tree backwards and removes splits beyond which there is no positive gain.
    - Accuracy: Good result for most data sets.
-   - Feasible: Customized objective and evaluation. Tunable params.
+   - Built-in CV: Run cv at each iteration of the boosting process and this it is easy to get the exact optimum num of boosting iterations in a single run
+   - Continue on Existing model: from it last iteration of previous run.
+   - Calculate and plot the variable importance
+
 *** Params
-    1. General Params
-       - num of threads
-    2. Booster params
-       - stepsize
-       - regularization
-       - max depth
-    3. Task params
-       - Objective
-       - Evaluation metric
-    
+    1. General Params: Guide overall functioning
+       - num of threads: max by default
+       - booster: gbtree(default), gblinear
+    2. Booster params: Guide individual booster at each step
+       - *eta (learning rate)*: typical values: 0.01-0.2 (default=0.3)
+       - *min_child_weight (def=1)*: min sum of weights of all observations required in a child. Used to control overfitting. Higher vals prevent a model from learning relations which might be highly specific to the particular sample selected for a tree. Tuned using CV.
+       - *max depth def=6*: Higher depth allow model to learn relations very specific. Typical vals: 3-10
+       - *max_leaf_nodes*: Max num of terminal nodes. Can be defined in place of max_depth.
+       - *gamma def=0*: Specifies minimum loss reduction required to make a split. Makes algo conservative. Vary depending on the loss func and should be tuned.
+       - *max_delta-step def=0*: Usually not needed, but might help in log regression when class is extremely imbalanced.
+       - *subsample(def=1)*: Typical vals 0.5-1
+       - *colsample_by_tree def=1*: Similar to max_features in GBM. 0.5-1
+       - *colsample_bylevel def=1*: Subsample ration of columns for each split, in each level.
+       - *lambda def=1*: L2 reg term on weights. It should be explored to reduce overfitting.
+       - *alpha def=0*: L1 reg on weight (analogous to Lasso regression). Can be used in case of very high dims so that alg. runs faster.
+       - *scale_pos_weight def=1*: Value greater than 0 should be used in case of high class imbalance, to converge faster.
+    3. Learning Task params: guide the optimization performed
+       - *Objective (def=reg:linear)*: loss function to be minimized.
+         - *binary:logistic*: For binary classification. Returns probs.
+         - *multi-softmax*: multiclass classification.
+         - *multi-softprob*: like softmax but returns probs.
+       - Evaluation metric: (rmse, mae, logloss, error, merror, mloglogss, auc) Default accorindg to objective.
+       - Seed: random seed.
+     
     Can group them as:
     - Controlling complexity: *max-depth, min-child-weight, gamma*
     - Robust to noise: *subsample, colsample-bytree*
@@ -73,15 +117,16 @@
       - Cannot re-balance the dataset
       - Set *max-delta-step* to finite num (1) will help convergence.
     
+    Xgboost module in python has sklearn wrapper XGBClassifier. n_estimators exists here, for the standard implementation: num_boosting_rounds while calling the fit function.
+    
     - Use *early.stop.round* to detect continuously being worse on test set.
     - If overfitting, reduce stepsize *eta* and increase *nround* at the same time
-*** Advanced Features
-    - Customized objective and evaluation metric
-    - Prediction from cross validation
-    - Continue training on existing model
-    - Calculate and plot the variable importance
 
 ** References
  - http://scikit-learn.org/stable/modules/ensemble.html#ensemble
  - https://mlwave.com/kaggle-ensembling-guide/
  - https://arxiv.org/abs/1603.02754 - xgboost paper
+ - [[https://hackernoon.com/how-to-develop-a-robust-algorithm-c38e08f32201][Boosting and Bagging]]
+ - [[http://explained.ai/gradient-boosting/index.html][How to explain gradient boosting]]
+ - [[https://medium.com/mlreview/gradient-boosting-from-scratch-1e317ae4587d][Gradient Boosting from scratch]]
+ - [[https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/][Guide to param tuning XGBoost]]
