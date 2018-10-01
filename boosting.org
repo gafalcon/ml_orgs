@@ -69,6 +69,8 @@
    - In the paper is recommended a low learning rate like 0.1 and a large number of stages(estimators). In practice, perform a grid search.
 
    - Smaller values of learning_rate require larger numbers of weak learners to maintain a constant training error. Empirical evidence suggests that small values of learning_rate favor better test error.Recommend to set the learning rate to a small constant (e.g. learning_rate <= 0.1) and choose n_estimators by early stopping
+
+
 ** XGBoost Xtreme Gradient Boosting
    - Regularization: Standard GBM has no regularization.
    - Efficient: Automatic parallel computation on a single machine. Can be run on a cluster
@@ -122,6 +124,11 @@
     - Use *early.stop.round* to detect continuously being worse on test set.
     - If overfitting, reduce stepsize *eta* and increase *nround* at the same time
 
+** TODO LightGBM
+
+
+** TODO CatBoost
+
 ** References
  - http://scikit-learn.org/stable/modules/ensemble.html#ensemble
  - https://mlwave.com/kaggle-ensembling-guide/
@@ -130,3 +137,5 @@
  - [[http://explained.ai/gradient-boosting/index.html][How to explain gradient boosting]]
  - [[https://medium.com/mlreview/gradient-boosting-from-scratch-1e317ae4587d][Gradient Boosting from scratch]]
  - [[https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/][Guide to param tuning XGBoost]]
+ - [[https://www.analyticsvidhya.com/blog/2016/02/complete-guide-parameter-tuning-gradient-boosting-gbm-python/][Tuning params GBM]]
+ - [[https://towardsdatascience.com/catboost-vs-light-gbm-vs-xgboost-5f93620723db][Catboost vs lightgbm vs xgboost]]
