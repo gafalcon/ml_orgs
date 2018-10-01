@@ -30,6 +30,8 @@
    - L = lm(x,y) # Regression coef(L) # coefficients abline(L)#draw line in plot
 
 ** Visualization
+   - plt.figure(figsize=[12,10]) #figure size
+   - plt.subplot(331) # Subplots 3x3 grid, first subplot. (332) = Second (333) = third
    - f,ax=plt.subplots(1,2,figsize=(18,8)) # Subplots
    - df.plot.scatter(x,y)
    - sns.countplot() # Bar chart for categorical data
